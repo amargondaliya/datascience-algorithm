@@ -14,6 +14,7 @@ import datascience.algoroithm.decisiontree.DecisionTreeRequest;
 import datascience.algoroithm.decisiontree.Node;
 import datascience.data.CSVReader;
 import datascience.data.DataFrame;
+import datascience.data.Element;
 import datascience.data.Record;
 import datascience.data.Schema;
 import datascience.data.StructField;
@@ -29,17 +30,16 @@ public class DecisionTreeTest {
 		structFileds.add(new StructField("Live_in_Water", String.class));
 		structFileds.add(new StructField("Class", String.class));
 		Schema schema = new Schema(structFileds);
-		String path = "";
+		String path = "/home/amar/Downloads/Amar/decisonTree/Xurmo/dataSet.csv";
 		String delimiter = ",";
 		CSVReader reader = new CSVReader(schema, path, delimiter);
 		DataFrame dataFrame = null;
 		try {
 			dataFrame = reader.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		System.out.println(dataFrame.count());
 		String target = "Class";
 		List<String> features = new ArrayList<String>(
 				Arrays.asList(new String[] { "Blood_Type", "Give_Birth",
@@ -47,15 +47,23 @@ public class DecisionTreeTest {
 		DecisionTreeRequest decisionTreeRequest = new DecisionTreeRequest(
 				target, features, dataFrame);
 		DecisionTreeModel tree = new DecisionTree(decisionTreeRequest).train();
+		System.out.println("Rules");
 		System.out.println(tree.toString());
-		List<Record> records = decisionTreeRequest.getDataFrame()
+		List<Record> records = dataFrame
 				.select(features.toArray(new String[features.size()]))
 				.getRecords();
 		Iterator<Record> iterator = records.iterator();
+		List<Record> predicted = new ArrayList<Record>();
 		while (iterator.hasNext()) {
 			Record next = iterator.next();
-			System.out.println(tree.classify(next));
+			List<Element> elements = new ArrayList<Element>();
+			elements.add(tree.classify(next));
+			predicted.add(new Record(elements));
 		}
+		List<Record> actual = dataFrame.select(target).getRecords();
+		double accuracy = Utils.accuracy(actual, predicted)*100;
+		System.out.println("Model Accuracy");
+		System.out.println(accuracy);
 
 	}
 

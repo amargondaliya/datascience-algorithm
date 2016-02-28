@@ -73,11 +73,11 @@ public class DecisionTree {
 				child.setClassvalue(commonClass);
 				child.setNodeValue(next);
 				child.setLeaf(true);
-				child.setPerent(root);
+				child.setParent(root);
 				root.getChildren().add(child);
 			}else{				
 				Node child = new Node();
-				child.setPerent(root);
+				child.setParent(root);
 				child.setNodeValue(next);
 				features.remove(maxInfoGainFeature.getFeatureName());
 				List<String> remainingFeatures = new ArrayList<String>(features);

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import datascience.data.DataFrame;
+import datascience.data.Record;
 
 public class Utils {
 	public static double infoGain(String target, String feature,
@@ -95,6 +96,23 @@ public class Utils {
 		double infoGain = infoGains.get(maxIndex);
 		return new FeatureInfoGain(feature, infoGain);
 
+	}
+	
+	public static double accuracy(List<Record> actual,List<Record> predicted) throws UtilsException{
+		if(actual.size()!=predicted.size()){
+			throw new UtilsException("Records are not same");
+		}
+		if(actual.size()==0 || predicted.size()==0){
+			throw new UtilsException("Records are empty");
+		}
+		int trueCount = 0;
+		for(int i=0; i<actual.size();i++){
+			if(actual.get(i).equals(predicted.get(i))){
+				trueCount++;
+			}
+		}
+		return trueCount*1.0/actual.size();
+		
 	}
 
 }

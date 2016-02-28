@@ -10,7 +10,7 @@ import datascience.data.Record;
 
 public class DecisionTreeModel {
 	private Node tree;
-	private String target; 
+	private String target;
 	private List<List<String>> paths;
 
 	public Node getTree() {
@@ -21,37 +21,36 @@ public class DecisionTreeModel {
 		this.tree = tree;
 	}
 
-	public DecisionTreeModel(Node tree,String target) {
+	public DecisionTreeModel(Node tree, String target) {
 		super();
 		this.tree = tree;
 		this.target = target;
 		this.paths = new ArrayList<List<String>>();
 		traverseTree(this.tree);
-		
+
 	}
-	
 
 	@Override
 	public String toString() {
 		StringBuilder path = new StringBuilder();
 		Iterator<List<String>> iterator = this.paths.iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			List<String> next = iterator.next();
 			Collections.reverse(next);
 			Iterator<String> iterator2 = next.iterator();
 			path.append("IF ");
-			while(iterator2.hasNext()){
+			while (iterator2.hasNext()) {
 				String next2 = iterator2.next();
 				path.append(next2);
 			}
 			path.append("\n");
-		}		
+		}
 		return path.toString();
 
 	}
-	
-	private void traverseTree(Node node){
-		if(node.isLeaf()){
+
+	private void traverseTree(Node node) {
+		if (node.isLeaf()) {
 			List<String> path = new ArrayList<String>();
 			path.add(node.getClassvalue().toString());
 			path.add("=");
@@ -59,51 +58,51 @@ public class DecisionTreeModel {
 			path.add(" --> ");
 			path.add(node.getNodeValue().toString());
 			Boolean rootNode = false;
-			Node currentNode = node.getPerent();
-			while(!rootNode){
-				if(currentNode.getPerent()==null){
+			Node currentNode = node.getParent();
+			while (!rootNode) {
+				if (currentNode.getParent() == null) {
 					path.add("=");
-					path.add(currentNode.getNodeName());					
+					path.add(currentNode.getNodeName());
 					rootNode = true;
-				}else{
+				} else {
 					path.add("=");
 					path.add(currentNode.getNodeName());
 					path.add(" & ");
 					path.add(currentNode.getNodeValue().toString());
-					currentNode = currentNode.getPerent();
+					currentNode = currentNode.getParent();
 				}
 			}
 			this.paths.add(path);
-		}else{			
+		} else {
 			Iterator<Node> iterator = node.getChildren().iterator();
-			while(iterator.hasNext()){
+			while (iterator.hasNext()) {
 				traverseTree(iterator.next());
 			}
 		}
 	}
-	
-	public Object classify(Record record){
-		return getClass(this.tree,record);		
+
+	public Element classify(Record record) {
+		return getClass(this.tree, record);
 	}
-	
-	private Object getClass(Node node,Record record){
-		Object classVal = node.getClassvalue();
-		if(node.isLeaf()){
-			classVal= node.getClassvalue();
-		}else{
+
+	private Element getClass(Node node, Record record) {
+		Element classVal = new Element(this.target, node.getClassvalue());
+		if (node.isLeaf()) {
+			classVal = new Element(this.target, node.getClassvalue());
+		} else {
 			Element element = record.selectElement(node.getNodeName());
 			Iterator<Node> iterator = node.getChildren().iterator();
-			while(iterator.hasNext()){
+			while (iterator.hasNext()) {
 				Node next = iterator.next();
-				if(next.getNodeValue().equals(element.getValue())){
-					classVal = getClass(next,record);					
-				}else{
-					classVal =next.getPerent().getClassvalue();
+				if (next.getNodeValue().equals(element.getValue())) {
+					classVal = getClass(next, record);
+				} else {
+					classVal = new Element(this.target,
+							next.getParent().getClassvalue());
 				}
 			}
 		}
 		return classVal;
 	}
-	
 
 }

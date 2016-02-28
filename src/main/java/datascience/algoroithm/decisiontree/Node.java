@@ -7,7 +7,7 @@ import java.util.Vector;
 public class Node {
 	private double infoGain;
 	private List<Node> children;
-	private Node perent;
+	private Node parent;
 	private boolean isLeaf;
 	private Object classvalue;
 	private String NodeName;
@@ -24,11 +24,11 @@ public class Node {
 	public void setChildren(List<Node> children) {
 		this.children = children;
 	}
-	public Node getPerent() {
-		return perent;
+	public Node getParent() {
+		return parent;
 	}
-	public void setPerent(Node perent) {
-		this.perent = perent;
+	public void setParent(Node perent) {
+		this.parent = perent;
 	}
 	public boolean isLeaf() {
 		return isLeaf;
