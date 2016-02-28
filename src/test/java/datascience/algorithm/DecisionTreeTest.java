@@ -29,8 +29,8 @@ public class DecisionTreeTest {
 		structFileds.add(new StructField("Can_Fly", String.class));
 		structFileds.add(new StructField("Live_in_Water", String.class));
 		structFileds.add(new StructField("Class", String.class));
-		Schema schema = new Schema(structFileds);
-		String path = "/home/amar/Downloads/Amar/decisonTree/Xurmo/dataSet.csv";
+		Schema schema = new Schema(structFileds);		
+		String path = System.getProperty("user.dir")+"/data/dataSet.csv";
 		String delimiter = ",";
 		CSVReader reader = new CSVReader(schema, path, delimiter);
 		DataFrame dataFrame = null;

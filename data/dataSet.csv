@@ -1,0 +1,21 @@
+Name,Blood_Type,Give_Birth,Can_Fly,Live_in_Water,Class
+human,warm,yes,no,no,mammals
+python,cold,no,no,no,reptiles
+salmon,cold,no,no,yes,fishes
+whale,warm,yes,no,yes,mammals
+frog,cold,no,no,sometimes,amphibians
+komodo,cold,no,no,no,reptiles
+bat,warm,yes,yes,no,mammals
+pigeon,warm,no,yes,no,birds
+cat,warm,yes,no,no,mammals
+leopard shark,cold,yes,no,yes,fishes
+turtle,cold,no,no,sometimes,reptiles
+penguin,warm,no,no,sometimes,birds
+porcupine,warm,yes,no,no,mammals
+eel,cold,no,no,yes,fishes
+salamander,cold,no,no,sometimes,amphibians
+gila monster,cold,no,no,no,reptiles
+platypus,warm,no,no,no,mammals
+owl,warm,no,yes,no,birds
+dolphin,warm,yes,no,yes,mammals
+eagle,warm,no,yes,no,birds
