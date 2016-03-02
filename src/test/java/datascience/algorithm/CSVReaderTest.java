@@ -13,7 +13,7 @@ public class CSVReaderTest {
 		structFileds.add(new StructField("C", String.class));
 		structFileds.add(new StructField("D", String.class));
 		Schema schema = new Schema(structFileds);
-		String path = "/home/amar/Downloads/Amar/decisonTree/Xurmo/sample.csv";
+		String path = System.getProperty("user.dir")+"/data/dataSet.csv";
 		String delimiter = ",";
 		CSVReader reader = new CSVReader(schema, path, delimiter);
 		DataFrame dataFrame = reader.read();
